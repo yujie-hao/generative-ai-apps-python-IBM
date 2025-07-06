@@ -52,4 +52,5 @@ iface = gr.Interface(
     description="This is a simple web app for generating captions for images using a trained model"
 )
 
-iface.launch(server_name="0.0.0.0", server_port=7860)
+# iface.launch(server_name="0.0.0.0", server_port=7860)
+iface.launch(share=True)
