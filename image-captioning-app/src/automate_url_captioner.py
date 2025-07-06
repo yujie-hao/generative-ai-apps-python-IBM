@@ -4,135 +4,117 @@ from io import BytesIO
 from bs4 import BeautifulSoup
 from transformers import AutoProcessor, BlipForConditionalGeneration
 import gradio as gr
+import time
 
 # Load the pretrained processor and model
-# https://huggingface.co/Salesforce/blip-image-captioning-large
+# Using "Salesforce/blip-image-captioning-base" for faster loading during demonstration
 processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
 # processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
 model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
-
-
 # model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-large")
 
+
 # Captioning function
-def caption_from_url(web_url: str) -> list[str]:
-    # URL of the page to scrape
-    # web_url = "https://en.wikipedia.org/wiki/IBM"
-    # web_url = "https://en.wikipedia.org/wiki/Thomas_J._Watson"
-    # Returns an array of captions for all images on a webpage.
+def caption_from_url(web_url: str, progress=gr.Progress()) -> list[str]:
+    """
+    Fetches images from a given URL, processes them, and generates captions.
+    Progress updates are sent to the Gradio UI.
+    """
     captions = []
 
-    # Download the page
-    response = requests.get(web_url)
-    # Parse the page with BeautifulSoup
-    soup = BeautifulSoup(response.text, 'html.parser')
+    # Initialize progress bar to 0% with a starting message.
+    # Adding a small sleep here to ensure this initial message has time to render
+    # before potentially fast initial operations complete.
+    progress(0, desc="Starting image extraction and processing...")
+    time.sleep(0.1) # Small delay to ensure initial progress message is displayed
 
-    # Find all img elements
+    try:
+        response = requests.get(web_url, timeout=15) # Increased timeout for robustness
+        response.raise_for_status() # Raise an exception for bad status codes (4xx or 5xx)
+    except requests.exceptions.RequestException as e:
+        progress(1, desc=f"Error fetching URL: {e}")
+        return [f"Error: Could not access the provided URL. {e}"]
+
+    soup = BeautifulSoup(response.text, 'html.parser')
     img_elements = soup.find_all('img')
 
-    # iterate over each img element
-    for img_element in img_elements:
+    if not img_elements:
+        progress(1, desc="No image elements found on the page.")
+        return ["No valid images found on the provided URL."]
+
+    # Use progress.tqdm to automatically update the progress bar as the loop runs.
+    # It takes an iterable and automatically calculates progress based on its length.
+    # The 'desc' parameter provides a descriptive message for the progress bar.
+    for i, img_element in progress.tqdm(
+        enumerate(img_elements),
+        total=len(img_elements),
+        desc="Processing images"
+    ):
         img_url = img_element.get('src')
 
-        # skip if the image is an SVG or too small (eg. icon)
-        if 'svg' in img_url or '1x1' in img_url:
+        # Skip SVG and 1x1 pixel images as they are often decorative or tracking pixels
+        if img_url and ('svg' in img_url or '1x1' in img_url):
             continue
-        # correct the url if it's malformed
-        if img_url.startswith('//'):
+
+        # Construct full URL if it's relative
+        if img_url and img_url.startswith('//'):
             img_url = 'https:' + img_url
-        elif not img_url.startswith('http://') and not img_url.startswith('https://'):
+        elif not (img_url and (img_url.startswith('http://') or img_url.startswith('https://'))):
+            # Skip if not a valid absolute URL
             continue
 
         try:
-            # Download the image
-            response = requests.get(img_url)
-            # Convert the image data to a PIL Image
-            raw_image = Image.open(BytesIO(response.content))
-            if raw_image.size[0] * raw_image.size[1] < 400:  # skip small img
+            # Fetch image content
+            img_response = requests.get(img_url, timeout=10)
+            img_response.raise_for_status() # Check for bad status codes on image fetch
+            raw_image = Image.open(BytesIO(img_response.content))
+
+            # Skip very small images that are unlikely to be meaningful content
+            if raw_image.size[0] * raw_image.size[1] < 400:
                 continue
+
             raw_image = raw_image.convert('RGB')
 
-            # Process the image
+            # Process image and generate caption
             inputs = processor(raw_image, return_tensors="pt")
-            # Generate a caption for the image
             out = model.generate(**inputs, max_new_tokens=50)
-            # Decode the generated tokens to text
             caption = processor.decode(out[0], skip_special_tokens=True)
             captions.append(f"Image: {img_url}\n\nCaption: {caption}")
+
+            # Simulate work to make progress more visible for demonstration
+            # time.sleep(0.1)
+
         except Exception as e:
+            # Print error for debugging, but continue processing other images
             print(f"Error processing image {img_url}: {e}")
             continue
+
+    # Mark progress as complete
+    progress(1, desc="Finished generating captions.")
     return captions
 
-def caption_from_url_to_file(web_url: str):
-    # URL of the page to scrape
-    # web_url = "https://en.wikipedia.org/wiki/IBM"
-    # web_url = "https://en.wikipedia.org/wiki/Thomas_J._Watson"
-    # Returns an array of captions for all images on a webpage.
-    captions = []
-
-    # Download the page
-    response = requests.get(web_url)
-    # Parse the page with BeautifulSoup
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # Find all img elements
-    img_elements = soup.find_all('img')
-
-    # Open a file to write the captions
-    with open("captions.txt", "w") as caption_file:
-        # iterate over each img element
-        for img_element in img_elements:
-            img_url = img_element.get('src')
-
-            # skip if the image is an SVG or too small (eg. icon)
-            if 'svg' in img_url or '1x1' in img_url:
-                continue
-            # correct the url if it's malformed
-            if img_url.startswith('//'):
-                img_url = 'https:' + img_url
-            elif not img_url.startswith('http://') and not img_url.startswith('https://'):
-                continue
-
-            try:
-                # Download the image
-                response = requests.get(img_url)
-                # Convert the image data to a PIL Image
-                raw_image = Image.open(BytesIO(response.content))
-                if raw_image.size[0] * raw_image.size[1] < 400: # skip small img
-                    continue
-                raw_image = raw_image.convert('RGB')
-
-                # Process the image
-                inputs = processor(raw_image, return_tensors="pt")
-                # Generate a caption for the image
-                out = model.generate(**inputs, max_new_tokens=50)
-                # Decode the generated tokens to text
-                caption = processor.decode(out[0], skip_special_tokens=True)
-
-                # Write the caption to the file, prepended by the image URL
-                caption_file.write(f"{img_url}: {caption}\n")
-            except Exception as e:
-                print(f"Error processing image {img_url}: {e}")
-                continue
-
-
-def display_captions(web_url: str):
-    captions = caption_from_url(web_url)
+def display_captions(web_url: str, progress=gr.Progress()):
+    """
+    Wrapper function to call caption_from_url and format its output.
+    The 'progress' object is automatically passed by Gradio and then
+    forwarded to the 'caption_from_url' function.
+    """
+    captions = caption_from_url(web_url, progress=progress)
     if not captions:
         return "No valid images found or captions generated."
-
-    # Format as Markdown for better readability
     formatted_output = '## Generated Captions\n\n' + '\n\n------\n\n'.join(captions)
     return formatted_output
 
-
-# Gradio interface
+# Gradio interface definition
 with gr.Blocks() as app:
     gr.Markdown("## BLIP Image Captioning from URL")
-    url_input = gr.Textbox(label="Enter the Web URL", placeholder="https://example.com")
+    url_input = gr.Textbox(label="Enter the Web URL", placeholder="[https://example.com](https://example.com)")
     submit_btn = gr.Button("Generate Captions")
     output = gr.Markdown()
+
+    # The click event listener calls display_captions.
+    # Gradio automatically injects the 'progress' object into display_captions
+    # because its signature includes 'progress=gr.Progress()'.
     submit_btn.click(
         fn=display_captions,
         inputs=url_input,

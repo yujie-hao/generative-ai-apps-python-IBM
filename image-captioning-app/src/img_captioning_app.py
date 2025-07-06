@@ -9,8 +9,8 @@ from transformers import AutoProcessor, BlipForConditionalGeneration
 # - Adds model-specific preprocessing (e.g., resizing to 224x224 for BLIP).
 # - Generates attention_mask and other required inputs automatically.
 # Note: AutoProcessor here detects & selects the correct processor (BlipProcessor)
-# processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
-processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
+processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
+# processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
 
 # Role: Generates text (captions) from the inputs
 # - Architecture
