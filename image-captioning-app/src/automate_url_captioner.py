@@ -7,10 +7,17 @@ import gradio as gr
 import time
 
 # Load the pretrained processor and model
+
+IS_BASE_MODEL = True
+model_name = "Salesforce/blip-image-captioning-base" if IS_BASE_MODEL else "Salesforce/blip-image-captioning-large"
+
 # Using "Salesforce/blip-image-captioning-base" for faster loading during demonstration
-processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
+processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-base") if IS_BASE_MODEL \
+    else AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
 # processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
-model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
+model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base") if IS_BASE_MODEL \
+    else BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-large")
+# model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 # model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-large")
 
 
@@ -82,7 +89,7 @@ def caption_from_url(web_url: str, progress=gr.Progress()) -> list[str]:
             captions.append(f"Image: {img_url}\n\nCaption: {caption}")
 
             # Simulate work to make progress more visible for demonstration
-            # time.sleep(0.1)
+            time.sleep(0.1)
 
         except Exception as e:
             # Print error for debugging, but continue processing other images
@@ -107,8 +114,15 @@ def display_captions(web_url: str, progress=gr.Progress()):
 
 # Gradio interface definition
 with gr.Blocks() as app:
-    gr.Markdown("## BLIP Image Captioning from URL")
-    url_input = gr.Textbox(label="Enter the Web URL", placeholder="[https://example.com](https://example.com)")
+    gr.Markdown(
+        f"""
+        **BLIP Image Captioning from URL**
+        - This is a simple web app for generating captions for images using BLIP framework
+        - Model: {model_name}
+        """
+    )
+
+    url_input = gr.Textbox(label="Enter the Web URL", placeholder="https://example.com")
     submit_btn = gr.Button("Generate Captions")
     output = gr.Markdown()
 

@@ -22,4 +22,36 @@ https://huggingface.co/Salesforce/blip-image-captioning-large
 
  **[Libs]**
  - beautifulsoup: https://pypi.org/project/beautifulsoup4/
-   - Beautiful Soup is a library that makes it easy to scrape information from web pages. It sits atop an HTML or XML parser, providing Pythonic idioms for iterating, searching, and modifying the parse tree. 
+   - Beautiful Soup is a library that makes it easy to scrape information from web pages. It sits atop an HTML or XML parser, providing Pythonic idioms for iterating, searching, and modifying the parse tree.
+
+
+**[Process]**
+1. Preprocessing
+    ```
+    inputs = processor(image, return_tensors="pt")
+    ```
+    - Resizes, normalizes, and converts the image into tensor format 
+    - Adds attention masks and padding for the decoder
+
+
+2. Encoding (Vision Transformer)
+    ```
+    vision_embeddings = model.vision_encoder(inputs["pixel_values"])
+    ```
+   - The image is split into patches → embedded → passed through ViT (Vision Transformer, e.g. ViT-B/16)
+   - Outputs are rich visual feature vectors
+
+
+3. Decoding (Text Generator)
+    ```
+    generated_ids = model.generate(**inputs)
+    ```
+    - The decoder receives the visual embeddings and begins generating tokens 
+    - Uses autoregressive decoding: each predicted token is fed back into the model to predict the next
+
+
+4. Postprocessing
+    ```
+    caption = processor.decode(generated_ids[0], skip_special_tokens=True)
+    ```
+    - Converts token IDs into a readable sentence

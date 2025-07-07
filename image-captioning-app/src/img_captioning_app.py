@@ -3,22 +3,30 @@ import numpy as np
 from PIL import Image
 from transformers import AutoProcessor, BlipForConditionalGeneration
 
+IS_BASE_MODEL = False
+# IS_BASE_MODEL = True
+model_name = "Salesforce/blip-image-captioning-base" if IS_BASE_MODEL else "Salesforce/blip-image-captioning-large"
+
 # Role: Preprocesses raw inputs (images/text) into a format the model understands.
 # - Preprocesses raw image/text into tensors
 # - Converts PIL/Numpy images → PyTorch tensors.
 # - Adds model-specific preprocessing (e.g., resizing to 224x224 for BLIP).
 # - Generates attention_mask and other required inputs automatically.
 # Note: AutoProcessor here detects & selects the correct processor (BlipProcessor)
-processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
-# processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
+processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-base") if IS_BASE_MODEL \
+    else AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
+# processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
 
 # Role: Generates text (captions) from the inputs
 # - Architecture
 #   - Vision Encoder: processes the image (CNN-based)
 #   - Text Decoder: generates captions autoregressively
-# model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base") # smaller / faster inference
-model = BlipForConditionalGeneration.from_pretrained(
-    "Salesforce/blip-image-captioning-large")  # more accurate / slower inference
+
+# base: smaller / faster inference
+# large: more accurate / slower inference
+model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base") if IS_BASE_MODEL \
+    else BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-large")
+# model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 
 
 def caption_image(input_image: np.ndarray):
@@ -49,7 +57,11 @@ iface = gr.Interface(
     inputs=gr.Image(),
     outputs="text",
     title="Image Captioning",
-    description="This is a simple web app for generating captions for images using a trained model"
+    description=
+        f"""
+        - This is a simple web app for generating captions for image using BLIP framework
+        - Model: {model_name}
+        """
 )
 
 # iface.launch(server_name="0.0.0.0", server_port=7860)
