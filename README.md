@@ -1,31 +1,34 @@
-# generative-ai-apps-python-IBM
+# Generative-ai-apps-python
 Generative AI applications in Python
 
 ## 1. image-captioning-app
-**[Description]**
+### [Description]
 - This is a simple image captioning application that uses a pre-trained model to generate captions for images.
 
-**[Language]**
+### [Language]
 - Python<br>
 
-**[Framework]**
+### [Framework]
 - Gradio.app
 
-**[Model]**
+### [Model]
 - BLIP (Bootstrapping Language-Image Pre-training)<br>
 https://huggingface.co/Salesforce/blip-image-captioning-large
 <br>![img.png](image-captioning-app/docs/blip.png)
 
-**[Apps]**
-1. image captioning app: upload an image and get a caption for it.
-2. automate web page image captioning: enter a URL, the app will fetch the images from it to generate captions.
+### [Apps]
+1. image captioning app: upload an image and get a caption for it. (https://huggingface.co/spaces/CogitativePanda/img_captioning_app_blip_gradio)
+2. automate web page image captioning: enter a URL, the app will fetch the images from it to generate captions. (https://huggingface.co/spaces/CogitativePanda/automate_url_captioner)
 
- **[Libs]**
+### [Demo]
+- https://youtu.be/kH2kkC45CVU
+
+### [Libs]
  - beautifulsoup: https://pypi.org/project/beautifulsoup4/
    - Beautiful Soup is a library that makes it easy to scrape information from web pages. It sits atop an HTML or XML parser, providing Pythonic idioms for iterating, searching, and modifying the parse tree.
 
 
-**[Process]**
+### [Process]
 1. Preprocessing
     ```
     inputs = processor(image, return_tensors="pt")
