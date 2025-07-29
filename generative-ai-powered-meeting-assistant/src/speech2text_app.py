@@ -14,6 +14,7 @@ from ibm_watson_machine_learning.foundation_models import Model
 ### LLM ###
 
 # initiate LLM instance, this can be IBM WatsonX, huggingface, or OpenAI instance
+# Setting up credentials: The credentials needed to access IBM's services are pre-arranged by the Skills Network team, so unfortunately, I won't be able to run this app in huggingface.
 my_credentials = {
     "url"    : "https://us-south.ml.cloud.ibm.com"
 }
