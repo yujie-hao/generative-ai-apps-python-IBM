@@ -131,3 +131,39 @@ https://huggingface.co/Salesforce/blip-image-captioning-large
 
 
 ### [Process]
+
+
+## 4. generative AI-Powered Meeting Assistant
+### [Description]
+- A business AI Meeting Companion Speech-to-Text app that captures audio using OpenAI Whisper and summarize it using Llama 2 LLM
+
+### [Language]
+- Python<br>
+
+### [Framework]
+
+### [Model]
+- OpenAI Whisper: https://openai.com/index/whisper/
+  - Whisper is an automatic speech recognition (ASR) system trained on 680,000 hours of multilingual and multitask supervised data collected from the web. 
+- Llama 2: https://huggingface.co/meta-llama/Llama-2-7b-chat-hf
+  - Llama 2 is a collection of pretrained and fine-tuned generative text models ranging in scale from 7 billion to 70 billion parameters. This is the repository for the 7B fine-tuned model, optimized for dialogue use cases and converted for the Hugging Face Transformers format.
+
+### [Apps]
+
+
+### [Demo]
+
+
+### [Libs]
+
+
+### [Process]
+
+
+Text generation with LLM: You've created a Python script to generate text using a model from the Hugging Face Hub, learned about some key parameters that influence the model's output, and have a basic understanding of how to switch between different LLM models.
+
+Speech-to-Text conversion: Utilize OpenAI's Whisper technology to convert lecture recordings into text, accurately.
+
+Content summarization: Implement IBM Watson's AI to effectively summarize the transcribed lectures and extract key points.
+
+User interface development: Create an intuitive and user-friendly interface using Hugging Face Gradio, ensuring ease of use for students and educators.
