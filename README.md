@@ -159,7 +159,10 @@ https://huggingface.co/spaces/CogitativePanda/generative-AI-powered-meeting-assi
 - requests~=2.32.3 
 - torch~=2.7.0 
 - transformers~=4.51.3 
-- gradio~=4.44.1
+- gradio==5.23.2 
+- langchain==0.0.343 
+- ibm_watson_machine_learning==1.0.335 
+- huggingface-hub>=0.28.1
 
 ### [Process]
 - Speech-to-Text conversion: Utilize OpenAI's Whisper technology to convert meeting audio recordings into text, accurately.
