@@ -1,6 +1,7 @@
 # Generative-ai-apps-python
 Generative AI applications in Python
 
+---
 ## 1. image-captioning-app
 ### [Description]
 - This is a simple image captioning application that uses a pre-trained model to generate captions for images.
@@ -58,7 +59,7 @@ https://huggingface.co/Salesforce/blip-image-captioning-large
     caption = processor.decode(generated_ids[0], skip_special_tokens=True)
     ```
     - Converts token IDs into a readable sentence
-
+---
 ## 2. chatbot
 ### [Description]
 - Simple Chatbot with Open Source LLM (facebook/blenderbot-400M-distill) using Python and Hugging Face.
@@ -88,7 +89,7 @@ https://huggingface.co/Salesforce/blip-image-captioning-large
 4. Iterative conversation
 
    As the conversation continues, this process repeats. The transformer and LLM work together to process each new input message, understand the context, and generate a relevant response.
-
+---
 ## 3. chatbot with voice assistance
 ### [Description]
 - Chatbot with voice assistance powered by OpenAI's GPT model and Watson's Text-to-Speech & Speech-to-Text models
@@ -119,20 +120,7 @@ https://huggingface.co/Salesforce/blip-image-captioning-large
       - Expressive and natural voices: TTS offers a variety of voices and languages that help to deliver output in accordance with user preferences. 
       - Emotion and expressiveness: TTS allows users to control the tone, emotion, and expressiveness of the voice output to suit the context of the conversation. 
       - Customization: Like STT, Watson TTS allows customization of voices and can be trained to include specific jargon or pronunciations unique to a business or industry.
-
-
-### [Apps]
-
-
-### [Demo]
-
-
-### [Libs]
-
-
-### [Process]
-
-
+---
 ## 4. generative AI-Powered Meeting Assistant
 ### [Description]
 - A business AI Meeting Companion Speech-to-Text app that captures audio using OpenAI Whisper and summarize it using Llama 2 LLM
@@ -153,7 +141,8 @@ https://huggingface.co/Salesforce/blip-image-captioning-large
 https://huggingface.co/spaces/CogitativePanda/generative-AI-powered-meeting-assistant
 
 ### [Demo]
-
+https://youtu.be/peYNlQHYQMQ
+![meeting_summarization_app_demo.png](generative-ai-powered-meeting-assistant/res/meeting_summarization_app_demo.png)
 
 ### [Libs]
 - requests~=2.32.3 
@@ -168,3 +157,4 @@ https://huggingface.co/spaces/CogitativePanda/generative-AI-powered-meeting-assi
 - Speech-to-Text conversion: Utilize OpenAI's Whisper technology to convert meeting audio recordings into text, accurately.
 - Content summarization: Implement IBM Watson's AI to effectively summarize the transcribed lectures and extract key points.
 - User interface development: Create an intuitive and user-friendly interface using Hugging Face Gradio.
+---
