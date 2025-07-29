@@ -36,7 +36,7 @@ llm = WatsonxLLM(LLAMA2_model)
 # This template is structured based on LLAMA2. If you are using other LLMs, feel free to remove the tags
 temp = """
 <s><<SYS>>
-List the key points with details from the context: 
+Only list the key points with details from the context, the final answer should not be over 5 sentence:  
 [INST] The context : {context} [/INST] 
 <</SYS>>
 """
@@ -80,7 +80,7 @@ output_text = gr.Textbox()
 iface = gr.Interface(fn=transcript_audio,
                      inputs=audio_input, outputs=output_text,
                      title="Audio transcription summarization app",
-                     description="Upload the audio file")
+                     description="Upload the audio file: mp3, wav")
 
 # Launch the Gradio app
 iface.launch(server_name="0.0.0.0", server_port=7860, share=True)
