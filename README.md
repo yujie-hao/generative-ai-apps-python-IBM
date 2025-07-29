@@ -141,6 +141,7 @@ https://huggingface.co/Salesforce/blip-image-captioning-large
 - Python<br>
 
 ### [Framework]
+- Gradio.app
 
 ### [Model]
 - OpenAI Whisper: https://openai.com/index/whisper/
@@ -149,21 +150,18 @@ https://huggingface.co/Salesforce/blip-image-captioning-large
   - Llama 2 is a collection of pretrained and fine-tuned generative text models ranging in scale from 7 billion to 70 billion parameters. This is the repository for the 7B fine-tuned model, optimized for dialogue use cases and converted for the Hugging Face Transformers format.
 
 ### [Apps]
-
+https://huggingface.co/spaces/CogitativePanda/generative-AI-powered-meeting-assistant
 
 ### [Demo]
 
 
 ### [Libs]
-
+- requests~=2.32.3 
+- torch~=2.7.0 
+- transformers~=4.51.3 
+- gradio~=4.44.1
 
 ### [Process]
-
-
-Text generation with LLM: You've created a Python script to generate text using a model from the Hugging Face Hub, learned about some key parameters that influence the model's output, and have a basic understanding of how to switch between different LLM models.
-
-Speech-to-Text conversion: Utilize OpenAI's Whisper technology to convert lecture recordings into text, accurately.
-
-Content summarization: Implement IBM Watson's AI to effectively summarize the transcribed lectures and extract key points.
-
-User interface development: Create an intuitive and user-friendly interface using Hugging Face Gradio, ensuring ease of use for students and educators.
+- Speech-to-Text conversion: Utilize OpenAI's Whisper technology to convert meeting audio recordings into text, accurately.
+- Content summarization: Implement IBM Watson's AI to effectively summarize the transcribed lectures and extract key points.
+- User interface development: Create an intuitive and user-friendly interface using Hugging Face Gradio.

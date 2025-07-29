@@ -79,7 +79,7 @@ output_text = gr.Textbox()
 # Create the Gradio interface with the function, inputs and outputs
 iface = gr.Interface(fn=transcript_audio,
                      inputs=audio_input, outputs=output_text,
-                     title="Audio Transcription App",
+                     title="Audio transcription summarization app",
                      description="Upload the audio file")
 
 # Launch the Gradio app
