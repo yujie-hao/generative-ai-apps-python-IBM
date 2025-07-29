@@ -1,0 +1,17 @@
+Eugene’s Speech – Blue Dolphin <SkyCommute> Meeting
+
+Thanks for joining. Today, we're talking about something bold: electric helicopters for daily commuting.
+
+The project is tentatively called Blue Dolphin SkyCommute. As urban traffic gets worse, vertical mobility becomes more necessary — and we can make it clean, quiet, and efficient.
+
+This isn’t just about flying vehicles. It’s about extending Blue Dolphin’s mission into the air.
+
+Think of a 2–4 seat, all-electric VTOL that can take you across a city in under 15 minutes — no noise, no emissions, no traffic.
+
+Of course, the engineering challenges are real — especially with battery density and flight safety — but we’ve solved harder problems.
+
+I want a working prototype by next year, even if it’s just a proof of concept. We need to show it flies.
+
+Also, messaging matters — we need to control the narrative if this leaks. Let’s plan to tease it at AI Day with a focus on autonomy and sustainability.
+
+Bottom line: Let’s move fast, stay focused, and show people that the sky is no longer the limit — it’s our next step.
