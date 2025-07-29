@@ -36,7 +36,7 @@ llm = WatsonxLLM(LLAMA2_model)
 # This template is structured based on LLAMA2. If you are using other LLMs, feel free to remove the tags
 temp = """
 <s><<SYS>>
-Only list the key points with details from the context, the final answer should not be over 5 sentence:  
+Only list the key points with details from the context, the final answer should not be over 5 sentences:  
 [INST] The context : {context} [/INST] 
 <</SYS>>
 """
