@@ -169,6 +169,7 @@ https://youtu.be/peYNlQHYQMQ
 - Flask
 
 ### [[Architecture]](https://www.linkedin.com/pulse/question-answer-bot-using-openai-langchain-faiss-satish-srinivasan/)<br>
+- [Chroma](https://python.langchain.com/docs/integrations/vectorstores/chroma/): Chroma is a vector database that allows you to store and query embeddings efficiently. It is designed to work seamlessly with LangChain, making it easy to integrate into your applications.
 ![rag-framework.png](chatbot-rag-framework/res/rag-framework.png)
 
 ### [Model]
@@ -176,7 +177,7 @@ https://youtu.be/peYNlQHYQMQ
 - LLM: meta-llama/llama-3-3-70b-instruct
 
 ### [Demo]
-- [Chroma](https://python.langchain.com/docs/integrations/vectorstores/chroma/): Chroma is a vector database that allows you to store and query embeddings efficiently. It is designed to work seamlessly with LangChain, making it easy to integrate into your applications.
+
 
 ### [Libs]
 - Flask==3.1.0 
