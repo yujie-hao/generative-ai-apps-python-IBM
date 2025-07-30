@@ -179,6 +179,7 @@ https://youtu.be/peYNlQHYQMQ
 ### [Demo]
 - ![chatbot_rag_demo.png](chatbot-rag-framework/res/chatbot_rag_demo.png)
 - https://youtu.be/ShTSqLMp-5M
+- Note: there is room to be improved in the prompt engineering part --> when asked `How about 16`, the context is not retrieved correctly. This is hallucination!
 
 ### [Libs]
 - Flask==3.1.0 
