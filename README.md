@@ -205,7 +205,7 @@ https://youtu.be/peYNlQHYQMQ
   - embed chunks using sentence-transformers/all-MiniLM-L6-v2 model.
   - store chunks in Chroma vector database.
 - process query:
-  - embed query using sentence-transformers/all-MiniLM-L6-v2 model.
+  - embed query using sentence-transformers/all-MiniLM-L6-v2 model (a.k.a. SBERT).
   - retrieve relevant chunks from Chroma vector database.
   - generate answer using meta-llama/llama-3-3-70b-instruct model with retrieved chunks as context.
   - update the conversation history with the query and answer.
