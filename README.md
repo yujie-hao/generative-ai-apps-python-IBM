@@ -173,7 +173,7 @@ https://youtu.be/peYNlQHYQMQ
 ![rag-framework.png](chatbot-rag-framework/res/rag-framework.png)
 
 ### [Model]
-- Embedding: sentence-transformers/all-MiniLM-L6-v2
+- Embedding: sentence-transformers/all-MiniLM-L6-v2 (a.k.a. SBERT)
 - LLM: meta-llama/llama-3-3-70b-instruct
 
 ### [Demo]
@@ -205,7 +205,7 @@ https://youtu.be/peYNlQHYQMQ
   - embed chunks using sentence-transformers/all-MiniLM-L6-v2 model.
   - store chunks in Chroma vector database.
 - process query:
-  - embed query using sentence-transformers/all-MiniLM-L6-v2 model (a.k.a. SBERT).
+  - embed query using sentence-transformers/all-MiniLM-L6-v2 model.
   - retrieve relevant chunks from Chroma vector database.
   - generate answer using meta-llama/llama-3-3-70b-instruct model with retrieved chunks as context.
   - update the conversation history with the query and answer.
