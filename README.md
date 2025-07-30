@@ -177,7 +177,8 @@ https://youtu.be/peYNlQHYQMQ
 - LLM: meta-llama/llama-3-3-70b-instruct
 
 ### [Demo]
-
+- ![chatbot_rag_demo.png](chatbot-rag-framework/res/chatbot_rag_demo.png)
+- https://youtu.be/ShTSqLMp-5M
 
 ### [Libs]
 - Flask==3.1.0 
