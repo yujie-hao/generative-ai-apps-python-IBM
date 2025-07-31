@@ -2,7 +2,7 @@
 Generative AI applications in Python
 
 ---
-## 1. image-captioning-app
+### 1. image-captioning-app
 [Description]
 - This is a simple image captioning application that uses a pre-trained model to generate captions for images.
 ---
