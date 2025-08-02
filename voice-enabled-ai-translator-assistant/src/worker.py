@@ -65,45 +65,20 @@ def text_to_speech(text, voice="fr-FR_ReneeV3Voice"):
     # Set up Watson Text-to-Speech HTTP Api url
     base_url = 'https://sn-watson-tts.labs.skills.network'
     api_url = base_url + '/text-to-speech/api/v1/synthesize?output=output_text.wav'
-
     # Adding voice parameter in api_url if the user has selected a preferred voice
     if voice != "" and voice != "default":
         api_url += "&voice=" + voice
-
-    print("api_url: ", api_url)
-
     # Set the headers for our HTTP request
     headers = {
         'Accept': 'audio/wav',
         'Content-Type': 'application/json',
     }
-    print("text: ", text)
-    # match = re.search(r'```(.*?)```', text)
-    # print("match: ", match)
-    # stripped_text = None
-    # if match:
-    #     stripped_text = match.group(1)
-    #     print("text: ", stripped_text)
-    # else:
-    #     print("No match found.")
-
     # Set the body of our HTTP request
     json_data = {
         'text': text,
     }
-
-    print('text: ', json_data)
-
     # Send a HTTP Post reqeust to Watson Text-to-Speech Service
     response = requests.post(api_url, headers=headers, json=json_data)
-
-    # if response.status_code == 200:
-    #     with open('output.wav', 'wb') as f:
-    #         f.write(response.content)
-    #         print("Saved Chinese TTS audio to 'output.wav'")
-    # else:
-    #     print("Error: ", response.text)
-
     print('Text-to-Speech response:', response)
     return response.content
 
