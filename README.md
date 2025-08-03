@@ -22,3 +22,7 @@ Generative AI applications in Python
 [Description]
 - A chatbot that uses the RAG (Retrieval-Augmented Generation) framework to answer questions based on the uploaded PDF file.
 ---
+### 6. voice enabled ai translator assistant
+[Description]
+- A voice-enabled AI translator assistant that translates spoken language into another language using IBM Watson® Speech Libraries and Watsonx’s flan-ul2 model (LLM). The assistant can convert spoken English into French, providing a seamless translation experience.
+---
