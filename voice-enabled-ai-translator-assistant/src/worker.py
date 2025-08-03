@@ -73,9 +73,17 @@ def text_to_speech(text, voice="fr-FR_ReneeV3Voice"):
         'Accept': 'audio/wav',
         'Content-Type': 'application/json',
     }
+
+    # process the text
+    # Split the text at the first occurrence of '```' and take the last part
+    cleaned_text = text.split('```', 1)[-1]
+    # Remove the trailing '```' if it exists
+    cleaned_text = cleaned_text.replace('```', '').strip()
+    print("cleaned_text: ", cleaned_text)
+
     # Set the body of our HTTP request
     json_data = {
-        'text': text,
+        'text': cleaned_text,
     }
     # Send a HTTP Post reqeust to Watson Text-to-Speech Service
     response = requests.post(api_url, headers=headers, json=json_data)

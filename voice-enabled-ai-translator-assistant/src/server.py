@@ -58,7 +58,7 @@ def process_message_route():
         mimetype='application/json'
     )
 
-    print(response)
+    print("response: ", response)
     return response
 
 
