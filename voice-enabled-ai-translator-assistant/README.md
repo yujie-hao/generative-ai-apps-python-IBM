@@ -9,7 +9,7 @@
 - Flask
 
 ### [Model]
-- IBM Watson® Speech Libraries: text-to-speech(tts) and speech-to-text(stt).
+- IBM Watson® Speech Libraries for Embed: text-to-speech(tts) and speech-to-text(stt).
 - Watsonx’s flan-ul2 model (LLM).
 
 ### [Process]
