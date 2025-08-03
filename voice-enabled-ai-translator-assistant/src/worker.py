@@ -62,6 +62,7 @@ def speech_to_text(audio_binary):
 
 
 def text_to_speech(text, voice="fr-FR_ReneeV3Voice"):
+    print("text_to_speech, text: ", text)
     # Set up Watson Text-to-Speech HTTP Api url
     base_url = 'https://sn-watson-tts.labs.skills.network'
     api_url = base_url + '/text-to-speech/api/v1/synthesize?output=output_text.wav'
@@ -75,21 +76,15 @@ def text_to_speech(text, voice="fr-FR_ReneeV3Voice"):
     }
 
     # process the text
-    # Split the text at the first occurrence of '```' and take the last part
-    cleaned_text = text.split('```', 1)[-1]
-    # Remove the trailing '```' if it exists
-    cleaned_text = cleaned_text.replace('```', '').strip()
-    print("cleaned_text: ", cleaned_text)
-
     # Set the body of our HTTP request
     json_data = {
-        'text': cleaned_text,
+        'text': text,
     }
     # Send a HTTP Post reqeust to Watson Text-to-Speech Service
     response = requests.post(api_url, headers=headers, json=json_data)
     print('Text-to-Speech response.status_code:', response.status_code)
+    # print('Text-to-Speech response.content:', response.content)
     return response.content
-
 
 def watsonx_process_message(user_message):
     # Set the prompt for Watsonx API
@@ -97,5 +92,12 @@ def watsonx_process_message(user_message):
     prompt = f"""You are an assistant helping translate sentences from English into French.
     Translate the query to French: ```{user_message}```."""
     response_text = model.generate_text(prompt=prompt)
-    print("watson response:", response_text)
-    return response_text
+
+    # Split the text at the first occurrence of '```' and take the last part
+    cleaned_text = response_text.split('```', 1)[-1]
+    # Remove the trailing '```' if it exists
+    cleaned_text = cleaned_text.replace('```', '').strip()
+    print("cleaned_text: ", cleaned_text)
+
+    print("watson response:", cleaned_text)
+    return cleaned_text

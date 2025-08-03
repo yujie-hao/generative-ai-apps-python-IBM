@@ -27,7 +27,7 @@ def speech_to_text_route():
         mimetype='application/json'
     )
     print("speech_to_text_route, response: ", response)
-    print("speech_to_text_route, response.data", response.data)
+    # print("speech_to_text_route, response.data", response.data)
     return response
 
 
@@ -37,7 +37,7 @@ def process_message_route():
     print('user_message: ', user_message)
 
     voice = request.json['voice'] # Get user\'s preferred voice from their request
-    print('voice: ', voice)
+    # print('voice: ', voice)
 
     # Call watsonx_process_message function to process the user's message and get a response back
     watsonx_response_text = watsonx_process_message(user_message)
