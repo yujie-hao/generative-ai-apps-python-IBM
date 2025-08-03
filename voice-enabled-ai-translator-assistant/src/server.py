@@ -26,26 +26,26 @@ def speech_to_text_route():
         status=200,
         mimetype='application/json'
     )
-    print(response)
-    print(response.data)
+    print("speech_to_text_route, response: ", response)
+    print("speech_to_text_route, response.data", response.data)
     return response
 
 
 @app.route('/process-message', methods=['POST'])
 def process_message_route():
     user_message = request.json['userMessage'] # Get user's message from their request
-    print('user_message', user_message)
+    print('user_message: ', user_message)
 
     voice = request.json['voice'] # Get user\'s preferred voice from their request
-    print('voice', voice)
+    print('voice: ', voice)
 
     # Call watsonx_process_message function to process the user's message and get a response back
     watsonx_response_text = watsonx_process_message(user_message)
 
-    # Clean the response to remove any emptylines
+    # Clean the response to remove any empty lines
     watsonx_response_text = os.linesep.join([s for s in watsonx_response_text.splitlines() if s])
 
-    # Call our text_to_speech function to convert Watsonx Api's reponse to speech
+    # Call our text_to_speech function to convert Watsonx Api's response to speech
     watsonx_response_speech = text_to_speech(watsonx_response_text, voice)
 
     # convert watsonx_response_speech to base64 string so it can be sent back in the JSON response
@@ -58,7 +58,7 @@ def process_message_route():
         mimetype='application/json'
     )
 
-    print("response: ", response)
+    print("/process-message, response: ", response)
     return response
 
 

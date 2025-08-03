@@ -87,7 +87,7 @@ def text_to_speech(text, voice="fr-FR_ReneeV3Voice"):
     }
     # Send a HTTP Post reqeust to Watson Text-to-Speech Service
     response = requests.post(api_url, headers=headers, json=json_data)
-    print('Text-to-Speech response:', response)
+    print('Text-to-Speech response.status_code:', response.status_code)
     return response.content
 
 
