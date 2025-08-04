@@ -6,6 +6,11 @@
 [Description]
 - This is a simple image captioning application that uses a pre-trained model to generate captions for images.
 
+[Model]
+- BLIP (Bootstrapping Language-Image Pre-training)
+  - Underneath is a Vision Transformer (ViT) for image encoding and a text generator for captioning. 
+  - Implemented in PyTorch.
+
 [DeepWiki]
 - https://deepwiki.com/yujie-hao/generative-ai-apps-python-IBM/2.4-image-captioning-app
 ---
