@@ -11,7 +11,32 @@
 ### [Model]
 - BLIP (Bootstrapping Language-Image Pre-training)<br>
 https://huggingface.co/Salesforce/blip-image-captioning-large
-<br>![blip.png](res/blip.png)
+  - BLIP is implemented in PyTorch and is designed to generate captions for images by combining vision and language understanding. 
+  - It uses a Vision Transformer (ViT) for image encoding and a text generator for captioning.
+  - example
+  ```
+   import torch
+   import requests
+   from PIL import Image
+   from transformers import BlipProcessor, BlipForConditionalGeneration
+   
+   # Load processor and model
+   processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
+   model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-large")
+   
+   # Move to GPU if available
+   device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+   model = model.to(device)
+   
+   # Load an image
+   img = Image.open(requests.get("https://storage.googleapis.com/sfr-vision-language-research/BLIP/demo.jpg", stream=True).raw).convert("RGB")
+   
+   # Unconditional caption
+   inputs = processor(img, return_tensors="pt").to(device)
+   outputs = model.generate(**inputs)
+   print(processor.decode(outputs[0], skip_special_tokens=True))
+  ```
+  <br>![blip.png](res/blip.png)
 
 ### [Apps]
 1. image captioning app: upload an image and get a caption for it. (https://huggingface.co/spaces/CogitativePanda/img_captioning_app_blip_gradio)
